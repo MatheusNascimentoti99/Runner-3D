@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -42,6 +43,7 @@ public class Player : MonoBehaviour
     private List<Collider> m_collisions = new List<Collider>();
 
     public int life = 5;
+    public Text txt_life;
     private void Awake()
     {
         if (!m_animator) { gameObject.GetComponent<Animator>(); }
@@ -167,6 +169,7 @@ public class Player : MonoBehaviour
         m_jumpInput = false;
         m_isGrounded = false;
         timeCollision = 0;
+        updateLife();
         if(life < 0)
         {
             Debug.Log("Game over");
@@ -192,5 +195,15 @@ public class Player : MonoBehaviour
         {
             m_animator.SetTrigger("Jump");
         }
+    }
+
+    private void updateLife()
+    {
+        txt_life.text = "Vidas: " + life;
+    }
+
+    public void upLife()
+    {
+        life++;
     }
 }
