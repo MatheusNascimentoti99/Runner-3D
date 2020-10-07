@@ -15,14 +15,12 @@ public class Player : MonoBehaviour
         Direct
     }
 
-    [SerializeField] private float m_moveSpeed = 2;
+    public float m_moveSpeed = 2;
     [SerializeField] private float m_turnSpeed = 200;
     [SerializeField] private float m_jumpForce = 4;
 
     [SerializeField] private Animator m_animator = null;
     [SerializeField] private Rigidbody m_rigidBody = null;
-
-    [SerializeField] private ControlMode m_controlMode = ControlMode.Direct;
 
     private float m_currentV = 0;
     private float m_currentH = 0;
@@ -40,9 +38,10 @@ public class Player : MonoBehaviour
     private bool m_jumpInput = false;
 
     private bool m_isGrounded;
-
+    private float timeCollision = 0f;
     private List<Collider> m_collisions = new List<Collider>();
 
+    public int life = 5;
     private void Awake()
     {
         if (!m_animator) { gameObject.GetComponent<Animator>(); }
@@ -110,57 +109,23 @@ public class Player : MonoBehaviour
         {
             m_jumpInput = true;
         }
+        m_animator.SetBool("Grounded", m_isGrounded);
+        DirectUpdate();
+        m_wasGrounded = m_isGrounded;
+        m_jumpInput = false;
+        m_moveSpeed += 1 * Time.deltaTime;
     }
 
     private void FixedUpdate()
     {
-        m_animator.SetBool("Grounded", m_isGrounded);
-
-        switch (m_controlMode)
+        if (m_animator.GetBool("Collision"))
         {
-            case ControlMode.Direct:
-                DirectUpdate();
-                break;
-
-            case ControlMode.Tank:
-                TankUpdate();
-                break;
-
-            default:
-                Debug.LogError("Unsupported state");
-                break;
+            timeCollision += Time.deltaTime;
         }
-
-        m_wasGrounded = m_isGrounded;
-        m_jumpInput = false;
-    }
-
-    private void TankUpdate()
-    {
-        float v = Input.GetAxis("Vertical");
-        float h = Input.GetAxis("Horizontal");
-
-        bool walk = Input.GetKey(KeyCode.LeftShift);
-
-        if (v < 0)
+        if(timeCollision > 0.3f)
         {
-            if (walk) { v *= m_backwardsWalkScale; }
-            else { v *= m_backwardRunScale; }
+            m_animator.SetBool("Collision", false);
         }
-        else if (walk)
-        {
-            v *= m_walkScale;
-        }
-
-        m_currentV = Mathf.Lerp(m_currentV, v, Time.deltaTime * m_interpolation);
-        m_currentH = Mathf.Lerp(m_currentH, h, Time.deltaTime * m_interpolation);
-
-        transform.position += transform.forward * m_currentV * m_moveSpeed * Time.deltaTime;
-        transform.Rotate(0, m_currentH * m_turnSpeed * Time.deltaTime, 0);
-
-        m_animator.SetFloat("MoveSpeed", m_currentV);
-
-        JumpingAndLanding();
     }
 
     private void DirectUpdate()
@@ -169,14 +134,13 @@ public class Player : MonoBehaviour
         float h = Input.GetAxis("Horizontal");
 
         Transform camera = Camera.main.transform;
-
         if (Input.GetKey(KeyCode.LeftShift))
         {
             v *= m_walkScale;
             h *= m_walkScale;
         }
 
-        m_currentV = Mathf.Lerp(m_currentV, v, Time.deltaTime * m_interpolation);
+        m_currentV = Mathf.Lerp(m_currentV, 1, Time.deltaTime * m_interpolation);
         m_currentH = Mathf.Lerp(m_currentH, h, Time.deltaTime * m_interpolation);
 
         Vector3 direction = camera.forward * m_currentV + camera.right * m_currentH * 1/4;
@@ -184,18 +148,29 @@ public class Player : MonoBehaviour
         float directionLength = direction.magnitude;
         direction.y = 0;
         direction = direction.normalized * directionLength;
-
         if (direction != Vector3.zero)
         {
             m_currentDirection = Vector3.Slerp(m_currentDirection, direction, Time.deltaTime * m_interpolation);
 
-            transform.rotation = Quaternion.LookRotation(m_currentDirection);
             transform.position += m_currentDirection * m_moveSpeed * Time.deltaTime;
-
+            
             m_animator.SetFloat("MoveSpeed", direction.magnitude);
         }
 
         JumpingAndLanding();
+    }
+
+    public void Collided()
+    {
+        life--;
+        m_animator.SetBool("Collision", true);
+        m_jumpInput = false;
+        m_isGrounded = false;
+        timeCollision = 0;
+        if(life < 0)
+        {
+            Debug.Log("Game over");
+        }
     }
 
     private void JumpingAndLanding()
