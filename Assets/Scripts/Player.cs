@@ -15,7 +15,7 @@ public class Player : MonoBehaviour
         Direct
     }
 
-    [SerializeField] private float m_moveSpeed = 2;
+    public float m_moveSpeed = 2;
     [SerializeField] private float m_turnSpeed = 200;
     [SerializeField] private float m_jumpForce = 4;
 
@@ -38,9 +38,10 @@ public class Player : MonoBehaviour
     private bool m_jumpInput = false;
 
     private bool m_isGrounded;
-
+    private float timeCollision = 0f;
     private List<Collider> m_collisions = new List<Collider>();
 
+    public int life = 5;
     private void Awake()
     {
         if (!m_animator) { gameObject.GetComponent<Animator>(); }
@@ -117,7 +118,14 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
-       
+        if (m_animator.GetBool("Collision"))
+        {
+            timeCollision += Time.deltaTime;
+        }
+        if(timeCollision > 0.3f)
+        {
+            m_animator.SetBool("Collision", false);
+        }
     }
 
     private void DirectUpdate()
@@ -132,7 +140,7 @@ public class Player : MonoBehaviour
             h *= m_walkScale;
         }
 
-        m_currentV = Mathf.Lerp(m_currentV, v, Time.deltaTime * m_interpolation);
+        m_currentV = Mathf.Lerp(m_currentV, 1, Time.deltaTime * m_interpolation);
         m_currentH = Mathf.Lerp(m_currentH, h, Time.deltaTime * m_interpolation);
 
         Vector3 direction = camera.forward * m_currentV + camera.right * m_currentH * 1/4;
@@ -145,11 +153,24 @@ public class Player : MonoBehaviour
             m_currentDirection = Vector3.Slerp(m_currentDirection, direction, Time.deltaTime * m_interpolation);
 
             transform.position += m_currentDirection * m_moveSpeed * Time.deltaTime;
-
+            
             m_animator.SetFloat("MoveSpeed", direction.magnitude);
         }
 
         JumpingAndLanding();
+    }
+
+    public void Collided()
+    {
+        life--;
+        m_animator.SetBool("Collision", true);
+        m_jumpInput = false;
+        m_isGrounded = false;
+        timeCollision = 0;
+        if(life < 0)
+        {
+            Debug.Log("Game over");
+        }
     }
 
     private void JumpingAndLanding()
