@@ -7,19 +7,29 @@ using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour
 {
     // Start is called before the first frame update
-    public void GamePlay()
+    public static void LoadHome()
+    {
+        SceneManager.LoadScene("Home");
+    }
+
+    public static void GamePlay()
     {
         SceneManager.LoadScene("Gameplay");
     }
 
-    public void About()
+    public static void About()
     {
         SceneManager.LoadScene("About");
     }
 
-    public void Quit()
+    public static void Upgrade()
+    {
+        SceneManager.LoadScene("Upgrade");
+    }
+
+    public static void Quit()
     {
         Application.Quit();
-        
+        EditorApplication.isPlaying = false;
     }
 }
