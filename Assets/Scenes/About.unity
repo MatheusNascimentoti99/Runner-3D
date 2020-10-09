@@ -786,7 +786,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "Corra at\xE9 chegar a praia, desviando de obst\xE1culos e animais."
+  m_Text: "Corra pelo litoral nordestino, desviando de obst\xE1culos e animais."
 --- !u!222 &1080062424
 CanvasRenderer:
   m_ObjectHideFlags: 0

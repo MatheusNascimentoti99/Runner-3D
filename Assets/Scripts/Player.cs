@@ -28,8 +28,6 @@ public class Player : MonoBehaviour
 
     private readonly float m_interpolation = 10;
     private readonly float m_walkScale = 0.33f;
-    private readonly float m_backwardsWalkScale = 0.16f;
-    private readonly float m_backwardRunScale = 0.66f;
 
     private bool m_wasGrounded;
     private Vector3 m_currentDirection = Vector3.zero;
@@ -40,7 +38,6 @@ public class Player : MonoBehaviour
 
     private bool m_isGrounded;
     private float timeCollision = 0f;
-    private List<Collider> m_collisions = new List<Collider>();
 
     public int life = 5;
     public Text txt_life;
@@ -50,59 +47,22 @@ public class Player : MonoBehaviour
         if (!m_rigidBody) { gameObject.GetComponent<Animator>(); }
     }
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        ContactPoint[] contactPoints = collision.contacts;
-        for (int i = 0; i < contactPoints.Length; i++)
-        {
-            if (Vector3.Dot(contactPoints[i].normal, Vector3.up) > 0.5f)
-            {
-                if (!m_collisions.Contains(collision.collider))
-                {
-                    m_collisions.Add(collision.collider);
-                }
-                m_isGrounded = true;
-            }
-        }
-    }
+
 
     private void OnCollisionStay(Collision collision)
     {
-        ContactPoint[] contactPoints = collision.contacts;
-        bool validSurfaceNormal = false;
-        for (int i = 0; i < contactPoints.Length; i++)
-        {
-            if (Vector3.Dot(contactPoints[i].normal, Vector3.up) > 0.5f)
-            {
-                validSurfaceNormal = true; break;
-            }
-        }
-
-        if (validSurfaceNormal)
+        if (collision.collider.CompareTag("Ground"))
         {
             m_isGrounded = true;
-            if (!m_collisions.Contains(collision.collider))
-            {
-                m_collisions.Add(collision.collider);
-            }
-        }
-        else
-        {
-            if (m_collisions.Contains(collision.collider))
-            {
-                m_collisions.Remove(collision.collider);
-            }
-            if (m_collisions.Count == 0) { m_isGrounded = false; }
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if (m_collisions.Contains(collision.collider))
+        if (collision.collider.CompareTag("Ground"))
         {
-            m_collisions.Remove(collision.collider);
+            m_isGrounded = false;
         }
-        if (m_collisions.Count == 0) { m_isGrounded = false; }
     }
 
     private void Update()
@@ -113,8 +73,6 @@ public class Player : MonoBehaviour
         }
         m_animator.SetBool("Grounded", m_isGrounded);
         DirectUpdate();
-        m_wasGrounded = m_isGrounded;
-        m_jumpInput = false;
         m_moveSpeed += 1 * Time.deltaTime;
     }
 
@@ -164,10 +122,10 @@ public class Player : MonoBehaviour
 
     public void Collided()
     {
+        Debug.Log("bater");
         life--;
-        m_animator.SetBool("Collision", true);
-        m_jumpInput = false;
         m_isGrounded = false;
+        m_animator.SetBool("Collision", true);
         timeCollision = 0;
         updateLife();
         if(life < 0)
@@ -182,19 +140,23 @@ public class Player : MonoBehaviour
 
         if (jumpCooldownOver && m_isGrounded && m_jumpInput)
         {
+            Debug.Log("Pular");
+            this.GetComponent<AudioSource>().Play();
             m_jumpTimeStamp = Time.time;
             m_rigidBody.AddForce(Vector3.up * m_jumpForce, ForceMode.Impulse);
         }
 
-        if (!m_wasGrounded && m_isGrounded)
+        else if (!m_wasGrounded && m_isGrounded)
         {
             m_animator.SetTrigger("Land");
         }
 
-        if (!m_isGrounded && m_wasGrounded)
+        else if (!m_isGrounded && m_wasGrounded)
         {
             m_animator.SetTrigger("Jump");
         }
+        m_wasGrounded = m_isGrounded;
+        m_jumpInput = false;
     }
 
     private void updateLife()
