@@ -1283,6 +1283,10 @@ PrefabInstance:
       propertyPath: txt_life
       value: 
       objectReference: {fileID: 963674372}
+    - target: {fileID: 7533655787369140553, guid: c5f7f0d98b496ae4e88db3e18caec0cb, type: 3}
+      propertyPath: m_jumpForce
+      value: 250
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c5f7f0d98b496ae4e88db3e18caec0cb, type: 3}
 --- !u!1001 &2144996054341421647
@@ -1413,6 +1417,10 @@ PrefabInstance:
     - target: {fileID: 1919012471076396, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
       propertyPath: m_Name
       value: SlimePBR
+      objectReference: {fileID: 0}
+    - target: {fileID: 1919012471076396, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
+      propertyPath: m_TagString
+      value: Enemy
       objectReference: {fileID: 0}
     - target: {fileID: 4023215848608658, guid: 55776efecb0cd134ea5f418c2f97a705, type: 3}
       propertyPath: m_LocalPosition.x
