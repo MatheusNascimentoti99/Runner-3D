@@ -40,7 +40,7 @@ public class Track : MonoBehaviour
         Instantiate(obstablesPrafebs[newObstableIndex], position, Quaternion.identity);
 
         int boolWillBeWall  = Random.Range(0,2);
-        if (boolWillBeWall >= 1)
+        if (boolWillBeWall >= 1 )
         {
             position = new Vector3(0, 0, road.transform.position.z + 20 * 5);
             Instantiate(obstablesPrafebs[0], position, Quaternion.identity);
