@@ -23,7 +23,7 @@ public class Track : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            GameController.gameController.IncrementScore();
+            //GameController.gameController.IncrementScore();
             makeObstables();
             MoveTrack();
         }

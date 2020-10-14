@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -39,8 +40,15 @@ public class Player : MonoBehaviour
     private bool m_isGrounded;
     private float timeCollision = 0f;
 
-    public int life = 5;
+    public int life;
     public Text txt_life;
+
+    void Start()
+    {
+        life = PointsSystem.pointsSystem.getLife();
+        updateLife();
+    }
+
     private void Awake()
     {
         if (!m_animator) { gameObject.GetComponent<Animator>(); }
@@ -130,6 +138,7 @@ public class Player : MonoBehaviour
         updateLife();
         if(life < 1)
         {
+            GameController.gameController.sendScore();
             MenuController.LoadHome(); // Isso pq eu tava tessstando ele
             Debug.Log("Game over");
         }
@@ -163,10 +172,5 @@ public class Player : MonoBehaviour
     private void updateLife()
     {
         txt_life.text = "Vidas: " + life;
-    }
-
-    public void upLife()
-    {
-        life++;
     }
 }

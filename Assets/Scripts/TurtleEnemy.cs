@@ -23,6 +23,7 @@ public class TurtleEnemy : MonoBehaviour
         }
         if (FindObjectOfType<Player>().transform.position.z > this.transform.position.z + 5)
         {
+            GameController.gameController.IncrementScore();
             Destroy(gameObject);
         }
     }
@@ -31,6 +32,7 @@ public class TurtleEnemy : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            GameController.gameController.DecrementScore();
             FindObjectOfType<Player>().Collided();
             GetComponents<Collider>()[1].enabled = false;
             collided = true;

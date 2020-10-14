@@ -34,8 +34,8 @@ public class GameController : MonoBehaviour
     {
         lengthTrack = FindObjectOfType<Player>().transform.position.z;
         indexBeach = (int)lengthTrack / 500;
-        txt_beach.text = "Você está em " + beaches[indexBeach];
-        txt_beachNext.text = "Falta " + (int)((500 * (indexBeach+1) - lengthTrack))/5 + " para" + beaches[indexBeach + 1];
+        txt_beach.text = "Você está na " + beaches[indexBeach];
+        txt_beachNext.text = "Faltam " + (int)((500 * (indexBeach+1) - lengthTrack))/5 + "m para a " + beaches[indexBeach + 1];
         
     }
     private void Awake()
@@ -52,7 +52,17 @@ public class GameController : MonoBehaviour
     public void IncrementScore()
     {
         score++;
-        txt_score.text = "Score atual: " + score;
+        txt_score.text = "Pontos: " + score;       
+    }
+
+    public void DecrementScore()
+    {
+        score--;
+        //txt_score.text = "Pontos: " + score;
+    }
+
+    public void sendScore()
+    {
         PointsSystem.pointsSystem.updatePoints(score);
     }
 }
