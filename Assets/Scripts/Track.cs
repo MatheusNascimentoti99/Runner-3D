@@ -8,7 +8,6 @@ public class Track : MonoBehaviour
     public GameObject wave;
     public GameObject road;
     public GameObject[] obstablesPrafebs;
-
     void Start()
     {
         
@@ -26,9 +25,14 @@ public class Track : MonoBehaviour
         {
             GameController.gameController.IncrementScore();
             makeObstables();
-            wave.transform.position = new Vector3(0, -12, wave.transform.position.z + 20);
-            road.transform.position = new Vector3(0, 0, road.transform.position.z + 20 * 5);
+            MoveTrack();
         }
+    }
+
+    public void MoveTrack()
+    {
+        wave.transform.position = new Vector3(0, -13, wave.transform.position.z + 20);
+        road.transform.position = new Vector3(0, 0, road.transform.position.z + 20 * 5);
     }
 
     private void makeObstables()
