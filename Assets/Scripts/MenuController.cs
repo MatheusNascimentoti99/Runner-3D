@@ -29,6 +29,7 @@ public class MenuController : MonoBehaviour
 
     public static void Quit()
     {
+        PointsSystem.pointsSystem.zero();
         Application.Quit();
         EditorApplication.isPlaying = false;
     }

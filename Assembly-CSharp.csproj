@@ -60,6 +60,7 @@
     <Compile Include="Assets\Supercyan Character Pack Free Sample\Scripts\DemoFree.cs" />
     <Compile Include="Assets\Scripts\MenuController.cs" />
     <Compile Include="Assets\Scripts\Track.cs" />
+    <Compile Include="Assets\Scripts\PointsSystem.cs" />
     <Compile Include="Assets\Scripts\GameController.cs" />
     <Compile Include="Assets\Scripts\Enemy.cs" />
     <Compile Include="Assets\GrassRoadRace\Script\CameraMove.cs" />

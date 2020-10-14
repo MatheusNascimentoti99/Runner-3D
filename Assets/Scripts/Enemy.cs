@@ -15,6 +15,7 @@ public class Enemy : MonoBehaviour
     {
         if(FindObjectOfType<Player>().transform.position.z > this.transform.position.z + 5)
         {
+            GameController.gameController.IncrementScore();
             Destroy(gameObject);
         }
     }
@@ -23,6 +24,7 @@ public class Enemy : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            GameController.gameController.DecrementScore();
             FindObjectOfType<Player>().Collided();
             GetComponents<Collider>()[1].enabled = false;
             FindObjectOfType<Player>().m_moveSpeed = FindObjectOfType<Player>().m_moveSpeed / 3;
