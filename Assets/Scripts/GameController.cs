@@ -36,5 +36,6 @@ public class GameController : MonoBehaviour
     {
         score++;
         txt_score.text = "Score atual: " + score;
+        PointsSystem.pointsSystem.updatePoints(score);
     }
 }

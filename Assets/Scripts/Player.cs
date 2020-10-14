@@ -128,8 +128,9 @@ public class Player : MonoBehaviour
         m_animator.SetBool("Collision", true);
         timeCollision = 0;
         updateLife();
-        if(life < 0)
+        if(life < 1)
         {
+            MenuController.LoadHome(); // Isso pq eu tava tessstando ele
             Debug.Log("Game over");
         }
     }
