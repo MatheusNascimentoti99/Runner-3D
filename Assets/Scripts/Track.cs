@@ -6,33 +6,40 @@ public class Track : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject wave;
+    private Player player;
     public GameObject road;
     public GameObject[] obstablesPrafebs;
     void Start()
     {
-        
+        player = FindObjectOfType<Player>();
     }
 
     // Update is called once per frame
     void Update()
     {
-    }
-
-
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        if(player.transform.position.z > road.transform.position.z + 5)
         {
-            //GameController.gameController.IncrementScore();
             makeObstables();
             MoveTrack();
         }
     }
 
-    public void MoveTrack()
+
+    //private void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        //GameController.gameController.IncrementScore();
+    //        makeObstables();
+    //        MoveTrack();
+    //    }
+    //}
+
+    private void MoveTrack()
     {
-        wave.transform.position = new Vector3(0, -13, wave.transform.position.z + 20);
         road.transform.position = new Vector3(0, 0, road.transform.position.z + 20 * 7);
+        wave.transform.position = new Vector3(0, -13, wave.transform.position.z + 20);
+
     }
 
     private void makeObstables()

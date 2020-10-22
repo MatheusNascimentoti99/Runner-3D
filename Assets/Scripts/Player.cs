@@ -75,7 +75,7 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (!m_jumpInput && Input.GetKey(KeyCode.Space))
+        if (!m_jumpInput && Input.GetKey(KeyCode.UpArrow))
         {
             m_jumpInput = true;
         }
@@ -144,10 +144,19 @@ public class Player : MonoBehaviour
         }
     }
 
+    private void DownJump()
+    {
+        if (Input.GetKey(KeyCode.DownArrow))
+        {
+            m_jumpTimeStamp = m_minJumpInterval;
+            m_rigidBody.AddForce(Vector3.down * m_jumpForce, ForceMode.Impulse);
+        }
+    }
+
     private void JumpingAndLanding()
     {
         bool jumpCooldownOver = (Time.time - m_jumpTimeStamp) >= m_minJumpInterval;
-
+        DownJump();
         if (jumpCooldownOver && m_isGrounded && m_jumpInput)
         {
             Debug.Log("Pular");
