@@ -11,12 +11,14 @@ public class PointsSystem : MonoBehaviour
     public GameObject button;
     public Text txt_points;
     public int life = 5;
+    public GameObject gameOver;
 
     // Start is called before the first frame update
     void Start()
     {
         txtPoints.SetActive(false);
         button.SetActive(false);
+        gameOver.SetActive(false);
     }
 
     // Update is called once per frame
@@ -93,5 +95,15 @@ public class PointsSystem : MonoBehaviour
     public int getLife()
     {
         return life;
+    }
+
+    public void isGameOver()
+    {
+        gameOver.SetActive(true);
+    }
+
+    public void isNotGameOver()
+    {
+        gameOver.SetActive(false);
     }
 }

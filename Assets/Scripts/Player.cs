@@ -42,6 +42,7 @@ public class Player : MonoBehaviour
 
     public int life;
     public Text txt_life;
+    public bool theGameIsOver = false;
 
     void Start()
     {
@@ -75,13 +76,27 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        if (!m_jumpInput && Input.GetKey(KeyCode.UpArrow))
+        if (theGameIsOver)
         {
-            m_jumpInput = true;
+            if (Input.GetButton("Jump"))
+            {
+                Time.timeScale = 1;
+                AudioListener.pause = false;
+                PointsSystem.pointsSystem.isNotGameOver();
+                GameController.gameController.sendScore();
+                MenuController.LoadHome();
+            }
         }
-        m_animator.SetBool("Grounded", m_isGrounded);
-        DirectUpdate();
-        m_moveSpeed += 1 * Time.deltaTime;
+        else
+        {
+            if (!m_jumpInput && Input.GetKey(KeyCode.UpArrow))
+            {
+                m_jumpInput = true;
+            }
+            m_animator.SetBool("Grounded", m_isGrounded);
+            DirectUpdate();
+            m_moveSpeed += 1 * Time.deltaTime;
+        }
     }
 
     private void FixedUpdate()
@@ -138,8 +153,10 @@ public class Player : MonoBehaviour
         updateLife();
         if(life < 1)
         {
-            GameController.gameController.sendScore();
-            MenuController.LoadHome(); // Isso pq eu tava tessstando ele
+            PointsSystem.pointsSystem.isGameOver();
+            theGameIsOver = true;
+            Time.timeScale = 0;
+            AudioListener.pause = true;
             Debug.Log("Game over");
         }
     }
