@@ -55,17 +55,5 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 4401349700990299336, guid: 38efdaadbfe1d624bbee439cb02e7661, type: 3}
-      propertyPath: animatorState.Array.data[0]
-      value: SenseSomethingRPT
-      objectReference: {fileID: 0}
-    - target: {fileID: 4401349700990299336, guid: 38efdaadbfe1d624bbee439cb02e7661, type: 3}
-      propertyPath: animatorState.Array.data[1]
-      value: Attack01
-      objectReference: {fileID: 0}
-    - target: {fileID: 4401349700990299336, guid: 38efdaadbfe1d624bbee439cb02e7661, type: 3}
-      propertyPath: animatorState.Array.data[2]
-      value: Die
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38efdaadbfe1d624bbee439cb02e7661, type: 3}
