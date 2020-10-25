@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
         if (Input.GetKey(KeyCode.DownArrow))
         {
             m_jumpTimeStamp = m_minJumpInterval;
-            m_rigidBody.AddForce(Vector3.down * m_jumpForce, ForceMode.Impulse);
+            m_rigidBody.AddForce(Vector3.down * m_jumpForce/3, ForceMode.Impulse);
         }
     }
 

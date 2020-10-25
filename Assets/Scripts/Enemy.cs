@@ -8,6 +8,7 @@ using UnityEngine.UIElements;
 public class Enemy : MonoBehaviour
 {
     public enum StateEnemy { lookingOut, following, die};
+    public string[] animatorState;
     public StateEnemy state;
     private bool collided = false;
     public float changeSpeed;
@@ -59,12 +60,12 @@ public class Enemy : MonoBehaviour
     }
     private void die()
     {
-        m_animator.Play("Die");
+        m_animator.Play(animatorState[2].ToString());
     }
 
     private void moveEnemyAround()
     {
-        m_animator.Play("Victory");
+        m_animator.Play(animatorState[0].ToString());
         speed = 0f;
 
     }
@@ -72,7 +73,7 @@ public class Enemy : MonoBehaviour
     private void follow()
     {
         speed = changeSpeed;
-        m_animator.Play("WalkBWD");
+        m_animator.Play(animatorState[1].ToString());
         Vector3 aux = transform.position - player.position;
         Quaternion rotation = Quaternion.LookRotation(aux);
         transform.rotation = Quaternion.Lerp(transform.rotation, rotation, 5f * Time.deltaTime);

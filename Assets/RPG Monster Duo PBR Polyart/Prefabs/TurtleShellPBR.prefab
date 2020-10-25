@@ -782,7 +782,7 @@ GameObject:
   - component: {fileID: 1499512618}
   - component: {fileID: 8062566932055801975}
   - component: {fileID: -3572241409430898579}
-  - component: {fileID: 6245868177861654267}
+  - component: {fileID: 4401349700990299336}
   m_Layer: 8
   m_Name: TurtleShellPBR
   m_TagString: Enemy
@@ -867,7 +867,7 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.97, y: 0.74, z: 1}
   m_Center: {x: 0, y: 0.39, z: -0.16}
---- !u!114 &6245868177861654267
+--- !u!114 &4401349700990299336
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -879,7 +879,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c85a576cbe0779840b006082908ff0f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animatorState:
+  - '"SenseSomethingRPT"'
+  - '"Attack01"'
+  - '"Die"'
   state: 0
+  changeSpeed: 1
 --- !u!1 &1822049695589022
 GameObject:
   m_ObjectHideFlags: 0

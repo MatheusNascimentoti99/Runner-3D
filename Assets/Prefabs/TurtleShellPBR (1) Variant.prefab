@@ -1,17 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &5165748944866701742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4809730058229558238}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 292a0495c1801d04792af7705e3b18c7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &4808109381314952054
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -67,11 +55,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 6245868177861654267, guid: 38efdaadbfe1d624bbee439cb02e7661, type: 3}
+    - target: {fileID: 4401349700990299336, guid: 38efdaadbfe1d624bbee439cb02e7661, type: 3}
+      propertyPath: animatorState.Array.data[0]
+      value: SenseSomethingRPT
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401349700990299336, guid: 38efdaadbfe1d624bbee439cb02e7661, type: 3}
+      propertyPath: animatorState.Array.data[1]
+      value: Attack01
+      objectReference: {fileID: 0}
+    - target: {fileID: 4401349700990299336, guid: 38efdaadbfe1d624bbee439cb02e7661, type: 3}
+      propertyPath: animatorState.Array.data[2]
+      value: Die
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 38efdaadbfe1d624bbee439cb02e7661, type: 3}
---- !u!1 &4809730058229558238 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1774625739149480, guid: 38efdaadbfe1d624bbee439cb02e7661, type: 3}
-  m_PrefabInstance: {fileID: 4808109381314952054}
-  m_PrefabAsset: {fileID: 0}
