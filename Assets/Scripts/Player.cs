@@ -95,7 +95,7 @@ public class Player : MonoBehaviour
             }
             m_animator.SetBool("Grounded", m_isGrounded);
             DirectUpdate();
-            m_moveSpeed += 1 * Time.deltaTime;
+            m_moveSpeed += 0.5f * Time.deltaTime;
         }
     }
 
