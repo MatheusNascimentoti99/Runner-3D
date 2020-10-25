@@ -880,9 +880,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animatorState:
-  - '"SenseSomethingRPT"'
-  - '"Attack01"'
-  - '"Die"'
+  - SenseSomethingRPT
+  - Attack01
+  - Die
   state: 0
   changeSpeed: 1
 --- !u!1 &1822049695589022
